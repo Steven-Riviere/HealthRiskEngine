@@ -1,0 +1,6 @@
+@DiabetesAPI_HostAddress = http://localhost:5017
+
+GET {{DiabetesAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
