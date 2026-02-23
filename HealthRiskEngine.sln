@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36811.4 d17.14
+VisualStudioVersion = 17.14.36811.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientsAPI", "PatientsAPI\PatientsAPI.csproj", "{4A1B2C42-4A3E-4F4E-A233-11EEB6B3A696}"
 EndProject
@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiabetesAPI", "DiabetesAPI\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CancersAPI", "CancersAPI\CancersAPI.csproj", "{B9E57A70-B99D-4440-B68C-8E5CC1C0D987}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "..\Shared\Shared.csproj", "{4C6EB300-4B38-4FC5-B5E6-D3197093A32C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{BBAD8B53-E8E8-4442-AD43-4D3131932FDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +47,10 @@ Global
 		{B9E57A70-B99D-4440-B68C-8E5CC1C0D987}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9E57A70-B99D-4440-B68C-8E5CC1C0D987}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9E57A70-B99D-4440-B68C-8E5CC1C0D987}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4C6EB300-4B38-4FC5-B5E6-D3197093A32C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4C6EB300-4B38-4FC5-B5E6-D3197093A32C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4C6EB300-4B38-4FC5-B5E6-D3197093A32C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4C6EB300-4B38-4FC5-B5E6-D3197093A32C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBAD8B53-E8E8-4442-AD43-4D3131932FDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBAD8B53-E8E8-4442-AD43-4D3131932FDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBAD8B53-E8E8-4442-AD43-4D3131932FDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBAD8B53-E8E8-4442-AD43-4D3131932FDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
