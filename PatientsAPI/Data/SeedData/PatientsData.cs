@@ -13,44 +13,43 @@ public class PatientsData
                 new()
                 {
                     Id = 1,
-                    LastName = "TestNone",
-                    FirstName = "Test",
+                    LastName = "Martin",
+                    FirstName = "Sophie",
                     DateOfBirth = new DateTime(1966, 12, 31),
                     Gender = GenderEnum.Female,
                     City = "Villeurbanne",
-                    Phone = "100-222-3333"
+                    Phone = "04 78 01 23 45"
                 },
                 new()
                 {
                     Id = 2,
-                    LastName = "TestBorderline",
-                    FirstName = "Test",
+                    LastName = "Durand",
+                    FirstName = "Jean",
                     DateOfBirth = new DateTime(1945, 6, 24),
                     Gender = GenderEnum.Male,
                     City = "Lyon",
-                    Phone = "200-333-4444"
+                    Phone = "04 72 34 56 78"
                 },
                 new()
                 {
                     Id = 3,
-                    LastName = "TestInDanger",
-                    FirstName = "Test",
+                    LastName = "Moreau",
+                    FirstName = "Lucas",
                     DateOfBirth = new DateTime(2004, 6, 18),
                     Gender = GenderEnum.Male,
                     City = "Lyon",
-                    Phone = "300-444-5555"
+                    Phone = "04 78 56 78 90"
                 },
                 new()
                 {
                     Id = 4,
-                    LastName = "TestEarlyOnset",
-                    FirstName = "Test",
+                    LastName = "Lefevre",
+                    FirstName = "Emma",
                     DateOfBirth = new DateTime(2002, 6, 28),
                     Gender = GenderEnum.Female,
                     City = "Vénissieux",
-                    Phone = "400-555-6666"
+                    Phone = "04 71 23 45 67"
                 }
-            );
+        );
     }
-}
 }
