@@ -5,7 +5,7 @@ using Shared.Models;
 
 namespace PatientsAPI.Data.SeedData;
 
-public class PatientsData
+public static class PatientsData
 {
     public static void SeedPatients(ModelBuilder modelBuilder)
     {
