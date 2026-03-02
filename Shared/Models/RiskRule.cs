@@ -1,4 +1,5 @@
-﻿namespace DiabetesAPI.Models
+﻿
+namespace Shared.Models
 {
     public class RiskRule
     {

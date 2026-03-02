@@ -1,6 +1,6 @@
 @CancersAPI_HostAddress = http://localhost:5056
 
-GET {{CancersAPI_HostAddress}}/weatherforecast/
+GET {{CancersAPI_HostAddress}}/api/cancers
 Accept: application/json
 
 ###

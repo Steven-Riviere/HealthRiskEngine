@@ -65,10 +65,10 @@ namespace DiabetesAPI.Services
                     score += 2;
             }
 
-            if (score <= 0) return "None";
-            if (score <= 3) return "Borderline";
-            if (score <= 6) return "In Danger";
-            return "Early Onset";
+            if (score <= 0) return "Rien";
+            if (score <= 3) return "Risque";
+            if (score <= 6) return "En Danger";
+            return "Risque élevé";
         }
 
 
