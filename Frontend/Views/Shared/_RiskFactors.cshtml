@@ -1,0 +1,121 @@
+﻿@model Frontend.Models.PatientViewModel
+@using Shared.Models
+@{
+    ViewData["Title"] = "RiskFactors";
+}
+<div class="accordion" style="margin: 10px 0" id="riskAccordion">
+
+    @* ----------------- DIABETE ----------------- *@
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingDiabetes">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDiabetes" aria-expanded="false" aria-controls="collapseDiabetes">
+                Diabète
+            </button>
+        </h2>
+        <div id="collapseDiabetes" class="accordion-collapse collapse" aria-labelledby="headingDiabetes" data-bs-parent="#riskAccordion">
+            <div class="accordion-body">
+                <div class="accordion" id="diabetesSubAccordion">
+                    @* Hausse *@
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingDiabetesUp">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDiabetesUp">
+                                Hausse diabète
+                            </button>
+                        </h2>
+                        <div id="collapseDiabetesUp" class="accordion-collapse collapse" aria-labelledby="headingDiabetesUp" data-bs-parent="#diabetesSubAccordion">
+                            <div class="accordion-body">
+                                <ul class="list-group list-group-flush">
+                                    @foreach (var rule in DiabetesRiskRules.Rules.Where(r => r.ScoreImpact > 0))
+                                    {
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            @rule.Pattern
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    @* Baisse *@
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingDiabetesDown">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDiabetesDown">
+                                Baisse diabète
+                            </button>
+                        </h2>
+                        <div id="collapseDiabetesDown" class="accordion-collapse collapse" aria-labelledby="headingDiabetesDown" data-bs-parent="#diabetesSubAccordion">
+                            <div class="accordion-body">
+                                <ul class="list-group list-group-flush">
+                                    @foreach (var rule in DiabetesRiskRules.Rules.Where(r => r.ScoreImpact < 0))
+                                    {
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            @rule.Pattern
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* ----------------- CANCER ----------------- *@
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingCancer">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCancer" aria-expanded="false" aria-controls="collapseCancer">
+                Cancer
+            </button>
+        </h2>
+        <div id="collapseCancer" class="accordion-collapse collapse" aria-labelledby="headingCancer" data-bs-parent="#riskAccordion">
+            <div class="accordion-body">
+                <div class="accordion" id="cancerSubAccordion">
+                    @* Hausse *@
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingCancerUp">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCancerUp">
+                                Hausse cancer
+                            </button>
+                        </h2>
+                        <div id="collapseCancerUp" class="accordion-collapse collapse" aria-labelledby="headingCancerUp" data-bs-parent="#cancerSubAccordion">
+                            <div class="accordion-body">
+                                <ul class="list-group list-group-flush">
+                                    @foreach (var rule in CancersRiskRules.Rules.Where(r => r.ScoreImpact > 0))
+                                    {
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            @rule.Pattern
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    @* Baisse *@
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingCancerDown">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCancerDown">
+                                Baisse cancer
+                            </button>
+                        </h2>
+                        <div id="collapseCancerDown" class="accordion-collapse collapse" aria-labelledby="headingCancerDown" data-bs-parent="#cancerSubAccordion">
+                            <div class="accordion-body">
+                                <ul class="list-group list-group-flush">
+                                    @foreach (var rule in CancersRiskRules.Rules.Where(r => r.ScoreImpact < 0))
+                                    {
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            @rule.Pattern
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

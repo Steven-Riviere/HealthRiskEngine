@@ -5,72 +5,49 @@ namespace DiabetesAPI.Services
 {
     public class DiabetesRiskService : IDiabetesRiskService
     {
-        private static readonly List<RiskRule> RiskRules = new()
-        {
-            // phrases qui augmentent le risque
-            new() { Pattern = "Hémoglobine A1C", ScoreImpact = 2 },
-            new() { Pattern = "Microalbumine", ScoreImpact = 1 },
-            new() { Pattern = "Cholestérol élevé", ScoreImpact = 2 },
-            new() { Pattern = "Fumeur", ScoreImpact = 1 },
-            new() { Pattern = "Vertiges", ScoreImpact = 1 },
-
-            // phrases qui diminuent le risque
-            new() { Pattern = "amélioration glycémique", ScoreImpact = -2 },
-            new() { Pattern = "glycémie stabilisée", ScoreImpact = -1 },
-            new() { Pattern = "poids normal", ScoreImpact = -1 },
-            new() { Pattern = "activité physique régulière", ScoreImpact = -2 },
-            new() { Pattern = "alimentation équilibrée", ScoreImpact = -1 },
-            new() { Pattern = "arrêt de la cigarette", ScoreImpact = -1 }
-
-        };
-
         public DiabetesRisk AssessRisk(PatientDto patient, List<NoteDto> notes)
         {
-            // Calcul du score total
-            int totalScore = notes.Sum(note =>
-                RiskRules
-                    .Where(rule => note.Notes.Contains(rule.Pattern, StringComparison.OrdinalIgnoreCase))
-                    .Sum(rule => rule.ScoreImpact)
-            );
+            int totalScore = 0;
 
-            string riskLevel = CalculateRisk(patient, totalScore);
+            foreach (var note in notes)
+            {
+                foreach (var rule in DiabetesRiskRules.Rules)
+                {
+                    if (note.Notes.Contains(rule.Pattern, StringComparison.OrdinalIgnoreCase))
+                    {
+                        totalScore += rule.ScoreImpact;
+                    }
+                }
+            }
+
+            int age = CalculateAge(patient.DateOfBirth);
+            string risk = CalculateRisk(totalScore, age);
 
             return new DiabetesRisk
             {
                 PatientId = patient.Id,
-                Patient = patient,
-                Notes = notes,
-                RiskLevel = riskLevel
+                RiskLevel = risk
             };
-
         }
-        private string CalculateRisk(PatientDto patient, int score)
+
+        private int CalculateAge(DateTime birthDate)
         {
-            int age = DateTime.Now.Year - patient.DateOfBirth.Year;
-            if (patient.DateOfBirth > DateTime.Now.AddYears(-age))
-                age--;
-
-            // Ajustement selon l'âge
-            if (age >= 60)
-                score += 2;
-            else if (age >= 40)
-                score += 1;
-
-            //Ajustement selon le genre (exemple cohérent)
-            if (age < 30)
-            {
-                if (patient.Gender == GenderEnum.Male)
-                    score += 1;
-                else
-                    score += 2;
-            }
-
-            if (score <= 0) return "Rien";
-            if (score <= 3) return "Risque";
-            if (score <= 6) return "En Danger";
-            return "Risque élevé";
+            int age = DateTime.Now.Year - birthDate.Year;
+            if (birthDate > DateTime.Now.AddYears(-age)) age--;
+            return age;
         }
 
+        private string CalculateRisk(int score, int age)
+        {
+            // Ajustement simple : plus sévère si jeune
+            if (age < 30)
+                score += 1;
+            // Pas de changement pour les 30 ans et plus
 
+            if (score <= 0) return "None";
+            if (score <= 2) return "Borderline";
+            if (score <= 4) return "In Danger";
+            return "Early Onset";
+        }
     }
 }

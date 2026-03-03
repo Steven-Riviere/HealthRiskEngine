@@ -1,0 +1,79 @@
+﻿@model Frontend.Models.PatientViewModel
+@{
+    ViewData["Title"] = "Ajouter un patient";
+}
+
+<main class="container" style="max-width: 600px; margin: 40px auto;">
+
+    <div class="card shadow-sm mx-auto">
+        <div class="card-body">
+            <h4 class="card-title mb-3 text-center">Ajouter un patient</h4>
+
+            <form asp-action="Create" method="post">
+                <p class="text-muted mb-3"><span class="text-danger">*</span> Champs obligatoires</p>
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="LastName" class="form-label">
+                        Nom <span class="text-danger">*</span>
+                    </label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="FirstName" class="form-label">
+                        Prénom <span class="text-danger">*</span>
+                    </label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="DateOfBirth" class="form-label">
+                        Date de naissance <span class="text-danger">*</span>
+                    </label>
+                    <input asp-for="DateOfBirth" type="date" class="form-control" />
+                    <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="Gender" class="form-label">
+                        Genre <span class="text-danger">*</span>
+                    </label>
+                    <select asp-for="Gender" class="form-select" asp-items="Html.GetEnumSelectList<Shared.Models.GenderEnum>()"></select>
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="City" class="form-label">
+                        Ville
+                    </label>
+                    <input asp-for="City" class="form-control" />
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label asp-for="Phone" class="form-label">
+                        Téléphone
+                    </label>
+                    <input asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+
+                <div class="mt-4 d-flex gap-2">
+                    <a asp-action="Index" class="btn btn-outline-secondary flex-grow-1 btn-hover">
+                        <i class="fa-solid fa-arrow-left me-1"></i> Retour
+                    </a>
+                    <button type="submit" class="btn btn-success flex-grow-1 btn-hover">
+                        <i class="fa-solid fa-floppy-disk me-1"></i> Valider
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

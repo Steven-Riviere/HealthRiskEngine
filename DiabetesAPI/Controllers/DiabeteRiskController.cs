@@ -6,12 +6,13 @@ namespace DiabetesAPI.Controllers
 {
     [Route("api/diabetes")]
     [ApiController]
-    public class DiabeteRiskController(IDiabetesRiskService diabetesRiskService) : ControllerBase
+    public class DiabetesRiskController(IDiabetesRiskService _diabetesRiskService) : ControllerBase
     {
+
         [HttpPost("assess")]
         public ActionResult<DiabetesRisk> Assess([FromBody] DiabetesRisk request)
         {
-            var result = diabetesRiskService.AssessRisk(request.Patient, request.Notes);
+            var result = _diabetesRiskService.AssessRisk(request.Patient, request.Notes);
             return Ok(result);
         }
     }

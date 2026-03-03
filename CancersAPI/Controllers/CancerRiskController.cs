@@ -6,12 +6,12 @@ namespace CancersAPI.Controllers
 {
     [Route("api/cancers")]
     [ApiController]
-    public class CancerRiskController(CancersRiskService cancersRiskService) : ControllerBase
+    public class CancerRiskController(ICancersRiskService _cancersRiskService) : ControllerBase
     {
         [HttpPost("assess")]
         public ActionResult<CancersRisk> Assess([FromBody] CancersRisk request)
         {
-            var result = cancersRiskService.AssessRisk(request.Patient, request.Notes);
+            var result = _cancersRiskService.AssessRisk(request.Patient, request.Notes);
             return Ok(result);
         }
     }

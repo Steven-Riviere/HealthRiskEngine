@@ -1,0 +1,50 @@
+﻿@model Frontend.Models.NoteViewModel
+@{
+    ViewData["Title"] = "Ajouter une note";
+}
+
+<main class="container my-5" style="max-width: 600px;">
+    <div class="card shadow-sm mx-auto">
+        <!-- Bannière en haut -->
+        <div class="p-2 mb-2 bg-primary text-white rounded-top">
+            <h4 class="mb-0 text-center">
+                Ajouter une note
+            </h4>
+        </div>
+
+        <div class="card-body rounded-top-0">
+            <!-- Informations patient -->
+            <h5 class="text-center text-muted mb-4">
+                Patient(e) @ViewBag.LastName @ViewBag.FirstName
+            </h5>
+
+            <!-- Formulaire -->
+            <form asp-action="Create" method="post">
+                <input type="hidden" asp-for="PatientId" value="@Model.PatientId" />
+                <input type="hidden" asp-for="DateAppointment" value="@Model.DateAppointment.ToString("yyyy-MM-ddTHH:mm:ss")" />
+
+                <div class="form-group mb-3">
+                    <label asp-for="Notes" class="form-label">Note du patient</label>
+                    <textarea asp-for="Notes" class="form-control" rows="6" placeholder="Saisissez la note de votre patient..."></textarea>
+                    <span asp-validation-for="Notes" class="text-danger"></span>
+                </div>
+
+                <!-- Boutons -->
+                <div class="mt-4 d-flex gap-2">
+                    <a asp-action="Details" asp-controller="Patients" asp-route-id="@Model.PatientId"
+                       class="btn btn-outline-secondary flex-grow-1 btn-hover">
+                        <i class="fa-solid fa-arrow-left me-1"></i> Annuler
+                    </a>
+
+                    <button type="submit" class="btn btn-success flex-grow-1">
+                        <i class="fa-solid fa-check me-1"></i> Valider
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
