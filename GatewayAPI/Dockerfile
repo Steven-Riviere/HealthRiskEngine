@@ -10,18 +10,19 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 # Copie le fichier projet pour restaurer les dépendances
-COPY ["Gateway.csproj", "."]
-RUN dotnet restore "Gateway.csproj"
+COPY ["GatewayAPI/GatewayAPI.csproj", "GatewayAPI/"]
+COPY ["Shared/Shared.csproj", "Shared/"]
+RUN dotnet restore "GatewayAPI/GatewayAPI.csproj"
 # Copie le reste du code source
 COPY . .
 WORKDIR "/src"
 # Compile le projet
-RUN dotnet build "Gateway.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "GatewayAPI/GatewayAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Cette étape permet de publier le projet de service à copier dans la phase finale
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "Gateway.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "GatewayAPI/GatewayAPI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # Image finale pour exécuter l'app
 FROM base AS final
@@ -29,4 +30,4 @@ WORKDIR /app
 # Copie les fichiers publiés depuis l'étape précédente
 COPY --from=publish /app/publish .
 # Commande de démarrage du conteneur
-ENTRYPOINT ["dotnet", "Gateway.dll"]
+ENTRYPOINT ["dotnet", "GatewayAPI.dll"]

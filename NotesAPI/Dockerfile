@@ -9,16 +9,17 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["NotesAPI.csproj", "."]
-RUN dotnet restore "NotesAPI.csproj"
+COPY ["NotesAPI/NotesAPI.csproj", "NotesAPI/"]
+COPY ["Shared/Shared.csproj", "Shared/"]
+RUN dotnet restore "NotesAPI/NotesAPI.csproj"
 COPY . .
 WORKDIR "/src"
-RUN dotnet build "NotesAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "NotesAPI/NotesAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Cette étape permet de publier le projet de service à copier dans la phase finale
 FROM build AS publish
 WORKDIR "/src"
-RUN dotnet publish "NotesAPI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "NotesAPI/NotesAPI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # Image finale pour exécuter l'app
 FROM base AS final

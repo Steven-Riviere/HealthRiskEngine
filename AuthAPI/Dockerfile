@@ -11,18 +11,19 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 # Copie le fichier projet pour restaurer les dépendances
-COPY ["AuthAPI.csproj", "."]
-RUN dotnet restore "AuthAPI.csproj"
+COPY ["AuthAPI/AuthAPI.csproj", "AuthAPI/"]
+COPY ["Shared/Shared.csproj", "Shared/"]
+RUN dotnet restore "AuthAPI/AuthAPI.csproj"
 # Copie le reste du code source
 COPY . .
 WORKDIR "/src"
 # Compile le projet
-RUN dotnet build "AuthAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "AuthAPI/AuthAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 
 FROM build AS publish
 WORKDIR "/src"
-RUN dotnet publish "AuthAPI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "AuthAPI/AuthAPI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # Image finale pour exécuter l'app
 FROM base AS final

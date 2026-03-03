@@ -11,18 +11,19 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 # Copie le fichier projet pour restaurer les dépendances
-COPY ["CancersAPI.csproj", "."]
-RUN dotnet restore "CancersAPI.csproj"
+COPY ["CancersAPI/CancersAPI.csproj", "CancersAPI/"]
+COPY ["Shared/Shared.csproj", "Shared/"]
+RUN dotnet restore "CancersAPI/CancersAPI.csproj"
 # Copie le reste du code source
 COPY . .
 WORKDIR "/src"
 # Compile le projet
-RUN dotnet build "CancersAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "CancersAPI/CancersAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Cette étape permet de publier le projet de service à copier dans la phase finale
 FROM build AS publish
 WORKDIR "/src"
-RUN dotnet publish "CancersAPI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "CancersAPI/CancersAPI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # Image finale pour exécuter l'app
 FROM base AS final

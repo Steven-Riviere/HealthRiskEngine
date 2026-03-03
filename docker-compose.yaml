@@ -33,8 +33,8 @@ services:
 # Microservices 
   auth-api: 
     build: 
-      context: ./AuthAPI
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: AuthAPI/Dockerfile
     container_name: auth-api
     ports: 
       - "5099:8080"
@@ -52,8 +52,8 @@ services:
 
   gateway: 
     build: 
-      context: ./Gateway
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: GatewayAPI/Dockerfile
     container_name: gateway
     ports:
     #Expose le port interne 8080 du conteneur vers le port 5083 de l’hôte pour pouvoir accéder à l’application depuis l’extérieur
@@ -72,8 +72,8 @@ services:
 
   patients-api: 
     build: 
-      context: ./PatientsAPI
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: PatientsAPI/Dockerfile
     container_name: patients-api
     ports: 
       - "5215:8080"
@@ -92,8 +92,8 @@ services:
 
   notes-api: 
     build: 
-      context: ./NotesAPI
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: NotesAPI/Dockerfile
     container_name: notes-api
     ports: 
       - "5018:8080"
@@ -113,8 +113,8 @@ services:
 
   diabete-api: 
     build: 
-      context: ./DiabetesAPI
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: DiabetesAPI/Dockerfile
     container_name: diabete-api
     ports: 
       - "5017:8080"
@@ -131,8 +131,8 @@ services:
 
   cancer-api: 
     build: 
-      context: ./CancersAPI
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: CancersAPI/Dockerfile
     container_name: cancer-api
     ports: 
       - "5056:8080"
