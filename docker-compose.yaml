@@ -1,0 +1,160 @@
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: Medicalib-sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=${SA_PASSWORD}
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    networks:
+      - Medicalib-network
+    restart: always
+
+
+  mongodb: 
+    image: mongo:7.0
+    container_name: notes-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb-data:/data/db
+      - mongodb-config:/data/configdb
+    networks:
+      - Medicalib-network
+    restart: always
+
+#mettre le frontend en dernier pour s'assurer que tous les services backend sont opérationnels avant de lancer l'interface utilisateur
+
+# Microservices 
+  auth-api: 
+    build: 
+      context: ./AuthAPI
+      dockerfile: Dockerfile
+    container_name: auth-api
+    ports: 
+      - "5099:8080"
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      - ASPNETCORE_HTTPS_PORT=
+      - ConnectionStrings__AuthConnection=Server=sqlserver,1433;Database=AuthDb;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True;MultipleActiveResultSets=true
+    depends_on: 
+      - sqlserver
+    networks: 
+      - Medicalib-network
+    restart: always
+
+
+  gateway: 
+    build: 
+      context: ./Gateway
+      dockerfile: Dockerfile
+    container_name: gateway
+    ports:
+    #Expose le port interne 8080 du conteneur vers le port 5083 de l’hôte pour pouvoir accéder à l’application depuis l’extérieur
+      - "5183:8080"
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=http://+:8080
+      #Permet de configurer un port HTTPS si nécessaire ; ici il est laissé vide mais prêt à être utilisé si on passe à HTTPS
+      - ASPNETCORE_HTTPS_PORT=
+    depends_on: 
+      - auth-api
+    networks: 
+      - Medicalib-network
+    restart: always
+
+
+  patients-api: 
+    build: 
+      context: ./PatientsAPI
+      dockerfile: Dockerfile
+    container_name: patients-api
+    ports: 
+      - "5215:8080"
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      - ASPNETCORE_HTTPS_PORT=
+      - ConnectionStrings__PatientsConnection=Server=sqlserver,1433;Database=PatientsDb;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True;MultipleActiveResultSets=true
+    depends_on:
+      - sqlserver
+      - auth-api
+    networks: 
+      - Medicalib-network
+    restart: always
+
+
+  notes-api: 
+    build: 
+      context: ./NotesAPI
+      dockerfile: Dockerfile
+    container_name: notes-api
+    ports: 
+      - "5018:8080"
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      - ASPNETCORE_HTTPS_PORT=
+      - ConnectionStrings__MongoDb=mongodb://mongodb:27017
+      - NotesDatabase__DatabaseName=Notes
+      - NotesDatabase__NotesCollectionName=Notes
+    depends_on:
+      - mongodb
+      - auth-api
+    networks: 
+      - Medicalib-network
+    restart: always
+
+  diabete-api: 
+    build: 
+      context: ./DiabetesAPI
+      dockerfile: Dockerfile
+    container_name: diabete-api
+    ports: 
+      - "5017:8080"
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=http://+:8080
+      - ASPNETCORE_HTTPS_PORT=
+    depends_on:
+      - sqlserver
+      - auth-api
+    networks: 
+      - Medicalib-network
+    restart: always
+
+  cancer-api: 
+    build: 
+      context: ./CancersAPI
+      dockerfile: Dockerfile
+    container_name: cancer-api
+    ports: 
+      - "5056:8080"
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=http://+:8080
+      - ASPNETCORE_HTTPS_PORT=
+    depends_on:
+      - sqlserver
+      - auth-api
+    networks: 
+      - Medicalib-network
+    restart: always
+
+volumes:
+  sqlserver_data:
+    driver: local
+  mongodb-data:
+    driver: local
+  mongodb-config:
+    driver: local
+
+networks:
+  Medicalib-network:
+    driver: bridge
