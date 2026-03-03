@@ -1,0 +1,105 @@
+{
+    "Routes": [
+        {
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            },
+            "DownstreamPathTemplate": "/api/patients/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "patients-api",
+                    "Port": 8080
+                }
+            ],
+            "UpstreamPathTemplate": "/patients/{everything}",
+            "UpstreamHttpMethod": [
+                "GET",
+                "POST",
+                "PUT"
+            ],
+            "SwaggerKey": "patients"
+        },
+        {
+            "DownstreamPathTemplate": "/api/auth/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "auth-api",
+                    "Port": 8080
+                }
+            ],
+            "UpstreamPathTemplate": "/auth/{everything}",
+            "UpstreamHttpMethod": [
+                "GET",
+                "POST"
+            ],
+            "SwaggerKey": "auth"
+        },
+        {
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            },
+            "DownstreamPathTemplate": "/api/notes/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "notes-api",
+                    "Port": 8080
+                }
+            ],
+            "UpstreamPathTemplate": "/notes/{everything}",
+            "UpstreamHttpMethod": [
+                "GET",
+                "POST"
+            ],
+            "SwaggerKey": "notes"
+        },
+        {
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            },
+            "DownstreamPathTemplate": "/api/diabetes/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "diabete-api",
+                    "Port": 8080
+                }
+            ],
+            "UpstreamPathTemplate": "/diabetes/{everything}",
+            "UpstreamHttpMethod": [
+                "GET",
+                "POST"
+            ],
+            "SwaggerKey": "diabetes"
+        },
+        {
+            "AuthenticationOptions": {
+                "AuthenticationProviderKey": "Bearer",
+                "AllowedScopes": []
+            },
+            "DownstreamPathTemplate": "/api/cancers/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "cancer-api",
+                    "Port": 8080
+                }
+            ],
+            "UpstreamPathTemplate": "/cancers/{everything}",
+            "UpstreamHttpMethod": [
+                "GET",
+                "POST"
+            ],
+            "SwaggerKey": "cancers"
+        }
+    ],
+
+    "GlobalConfiguration": {
+        "BaseUrl": "http://gateway:8080"
+    }
+}
