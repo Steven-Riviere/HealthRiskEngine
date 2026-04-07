@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthAPI", "AuthAPI\AuthAPI.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend", "Frontend\Frontend.csproj", "{F9515BFA-4CD7-417D-8628-8853C133ED05}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthRiskEngine.Tests", "HealthRiskEngine.Tests.Unit\HealthRiskEngine.Tests.csproj", "{247A66A2-FEB9-4D78-8087-5F426FACB7A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,6 +127,18 @@ Global
 		{F9515BFA-4CD7-417D-8628-8853C133ED05}.Release|x64.Build.0 = Release|Any CPU
 		{F9515BFA-4CD7-417D-8628-8853C133ED05}.Release|x86.ActiveCfg = Release|Any CPU
 		{F9515BFA-4CD7-417D-8628-8853C133ED05}.Release|x86.Build.0 = Release|Any CPU
+		{247A66A2-FEB9-4D78-8087-5F426FACB7A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{247A66A2-FEB9-4D78-8087-5F426FACB7A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{247A66A2-FEB9-4D78-8087-5F426FACB7A2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{247A66A2-FEB9-4D78-8087-5F426FACB7A2}.Debug|x64.Build.0 = Debug|Any CPU
+		{247A66A2-FEB9-4D78-8087-5F426FACB7A2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{247A66A2-FEB9-4D78-8087-5F426FACB7A2}.Debug|x86.Build.0 = Debug|Any CPU
+		{247A66A2-FEB9-4D78-8087-5F426FACB7A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{247A66A2-FEB9-4D78-8087-5F426FACB7A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{247A66A2-FEB9-4D78-8087-5F426FACB7A2}.Release|x64.ActiveCfg = Release|Any CPU
+		{247A66A2-FEB9-4D78-8087-5F426FACB7A2}.Release|x64.Build.0 = Release|Any CPU
+		{247A66A2-FEB9-4D78-8087-5F426FACB7A2}.Release|x86.ActiveCfg = Release|Any CPU
+		{247A66A2-FEB9-4D78-8087-5F426FACB7A2}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
