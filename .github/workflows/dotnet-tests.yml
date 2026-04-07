@@ -20,10 +20,10 @@ jobs:
                 dotnet-version: 8.0.x
 
             - name: Restore dependencies
-              run: dotnet restore HealthRiskEngine/HealthRiskEngine.sln
+              run: dotnet restore HealthRiskEngine.sln
 
             - name: Build
-              run: dotnet build HealthRiskEngine/HealthRiskEngine.sln --no-restore
+              run: dotnet build HealthRiskEngine.sln --no-restore
 
             - name: Test
-              run: dotnet test HealthRiskEngine/HealthRiskEngine.sln --no-build --verbosity normal
+              run: dotnet test HealthRiskEngine.sln --no-build --verbosity normal
