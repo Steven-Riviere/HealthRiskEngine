@@ -14,7 +14,7 @@ namespace HealthRiskEngine.Tests.Integrations
         {
             var client = new MongoClient("mongodb://localhost:27017");
             _database = client.GetDatabase("Notes_TestIntegration");
-            _collection = _database.GetCollection<Note>("Notes");
+            _collection = _database.GetCollection<Note>("NotesTests");
 
             //On Cleane avant chaque test
             await _collection.DeleteManyAsync(_ => true);
