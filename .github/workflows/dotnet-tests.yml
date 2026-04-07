@@ -22,6 +22,9 @@ jobs:
               --health-timeout=5s
               --health-retries=5
 
+        env:
+          MONGO_CONNECTION: mongodb://mongo:27017
+          
         steps:
             - uses: actions/checkout@v4
             

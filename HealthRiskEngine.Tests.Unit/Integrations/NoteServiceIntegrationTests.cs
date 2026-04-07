@@ -12,9 +12,13 @@ namespace HealthRiskEngine.Tests.Integrations
 
         public async Task InitializeAsync()
         {
-            var client = new MongoClient("mongodb://localhost:27017");
+            var connectionString =
+                Environment.GetEnvironmentVariable("MONGO_CONNECTION")
+                ?? "mongodb://localhost:27017";
+
+            var client = new MongoClient(connectionString);
             _database = client.GetDatabase("Notes_TestIntegration");
-            _collection = _database.GetCollection<Note>("NotesTests");
+            _collection = _database.GetCollection<Note>("Notes");
 
             //On Cleane avant chaque test
             await _collection.DeleteManyAsync(_ => true);
